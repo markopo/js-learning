@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+  <meta name="description" content="Videoinfo" />
+  <meta charset="utf-8">
+  <title>Videoinfo</title>
+  <link rel="stylesheet" href="photon.css">
+  <style>
+      form {
+          width: 300px;
+          padding: 20px;
+      }
+  </style>
+</head>
+<body>
+        <div class="window">
+                <div class="window-content">
+                    <form>
+                        <div>
+                            <label>Select a video</label>
+                            <input id="file" name="file" type="file" accept="video/*" >
+                        </div>
+                        <button type="submit" id="saveBtn" >Save</button>
+                    </form>
+
+                    <h1 id="result"></h1>
+                </div>
+          </div>
+
+          <script>
+              (function() {
+                    const electron = require('electron');
+                    const { ipcRenderer } = electron;
+
+                    document.querySelector('form').addEventListener('submit', (event) => {
+                            event.preventDefault();
+                            const { path } = document.getElementById('file').files[0];
+                            
+                            ipcRenderer.send('video:submit', path);
+                    });
+
+                    ipcRenderer.on('video:metadata', (event, duration) => {
+                            console.log('index - video:metadata ', event, duration);
+                            document.getElementById('result').innerText = 'duration: ' + duration.toString() + ' seconds.';
+                    });
+
+              })();
+          </script>
+</body>
+</html>
