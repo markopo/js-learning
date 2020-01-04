@@ -1,0 +1,14 @@
+
+
+<div>
+  <h1>My App</h1>
+  <p>Value: {{ counter$ | async }}</p>
+  <div>
+    <button class="btn" (click)="clickAdd()" >+</button>
+    <button class="btn" (click)="clickDecrease()" >-</button>
+  </div>
+</div>
+<hr />
+
+
+<router-outlet></router-outlet>
