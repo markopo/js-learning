@@ -5,6 +5,9 @@ import {AppState} from "./AppState";
 import {decrease, increment} from "./app.module";
 import {Product} from "./product";
 
+const counterSelector = (state) => state.counter;
+const productsSelector = (state) => state.products;
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -23,9 +26,9 @@ export class AppComponent implements OnInit {
 
   constructor(private store: Store<AppState>) {
 
-    this.counter$ = store.select('counter');
+    this.counter$ = store.select(counterSelector);
 
-    this.products$ = this.store.select('products');
+    this.products$ = this.store.select(productsSelector);
 
   }
 
@@ -50,9 +53,11 @@ export class AppComponent implements OnInit {
         return;
       }
 
+      this.id += 1;
+
       this.store.dispatch({
           type: 'ADD',
-          payload: { name: this.newProduct, id: this.id++ }
+          payload: { name: this.newProduct, id: this.id }
       })
   }
 }
