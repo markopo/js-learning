@@ -7,6 +7,19 @@
     <button class="btn" (click)="clickAdd()" >+</button>
     <button class="btn" (click)="clickDecrease()" >-</button>
   </div>
+  <hr />
+  <div>
+      <div>
+        <input class="form-control" type="text" [(ngModel)]="newProduct" >
+        <button class="btn" (click)="clickAddProduct()" >Add Product</button>
+      </div>
+      <div *ngFor="let product of products$ | async" >
+          <div>
+              <h5>{{product.name}}</h5>
+              <p>id: {{product.id}}</p>
+          </div>
+      </div>
+  </div>
 </div>
 <hr />
 

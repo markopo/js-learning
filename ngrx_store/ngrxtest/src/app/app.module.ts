@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import {createAction, createReducer, StoreModule, on } from "@ngrx/store";
+import {FormsModule} from "@angular/forms";
 
 
 export const increment = createAction('increment');
@@ -37,6 +38,7 @@ const productsReducer = (state = [], action) => {
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule,
     StoreModule.forRoot({
       counter: counterReducer,
       products: productsReducer

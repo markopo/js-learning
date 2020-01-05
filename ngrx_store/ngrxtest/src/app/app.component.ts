@@ -3,6 +3,7 @@ import {Store} from "@ngrx/store";
 import {Observable} from "rxjs";
 import {AppState} from "./AppState";
 import {decrease, increment} from "./app.module";
+import {Product} from "./product";
 
 @Component({
   selector: 'app-root',
@@ -14,9 +15,17 @@ export class AppComponent implements OnInit {
 
   counter$: Observable<number>;
 
+  products$: Observable<Product[]>;
+
+  newProduct: Product;
+
+  id = 0;
+
   constructor(private store: Store<AppState>) {
 
     this.counter$ = store.select('counter');
+
+    this.products$ = this.store.select('products');
 
   }
 
@@ -32,5 +41,18 @@ export class AppComponent implements OnInit {
   clickDecrease() {
       console.log('decrease');
       this.store.dispatch(decrease());
+  }
+
+  clickAddProduct() {
+      console.log('product: ', this.newProduct);
+
+      if(!this.newProduct) {
+        return;
+      }
+
+      this.store.dispatch({
+          type: 'ADD',
+          payload: { name: this.newProduct, id: this.id++ }
+      })
   }
 }
